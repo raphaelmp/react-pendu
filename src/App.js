@@ -1,26 +1,65 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      // On crée un array avec toutes les lettres disponibles
+      lettresDisponibles: [..."abcdefghijklmnopqrstuvwxyz"],
+      lettresEssayees: new Set(),
+      mot: "sinusite",
+    }
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    let lettreAppuyee = event.target.firstChild.data;
+
+    let ajouts = [lettreAppuyee];
+
+    // Patch pas très élégante pour les accents
+    if (lettreAppuyee === 'e') {
+      ajouts = ['e', 'é', 'è', 'ë'];
+    } else if (lettreAppuyee === 'a') {
+      ajouts = ['à', 'a']
+    }
+
+
+    this.setState(prevState => {
+      let set = prevState.lettresEssayees; // On récupère l'ancien set
+      let nouveauSet = new Set([ ...set, ...ajouts]);
+      return ({lettresEssayees: nouveauSet})
+    })
+  }
+
+  render() {
+    // On transforme l'array de lettres du state en divs pour l'affichage
+    let lettres = this.state.lettresDisponibles.map(x => (<div key={x} className="lettre" onClick={this.handleClick}>{x}</div>));
+
+    //On calcule le texte restant à afficher
+    function computeDisplay(phrase, usedLetters) {
+      return phrase.replace(/\w/g,
+        (letter) => (usedLetters.has(letter) ? letter : '_')
+      )
+    }
+    let motAffiche = computeDisplay(this.state.mot, this.state.lettresEssayees)
+
+    return (
+      <div className="App">
+        <div className="mot">
+          <p>{motAffiche}</p>
+        </div>
+        <div className="lettresEssayees">
+          <p>Lettres essayées: {}</p>
+        </div>
+        <div className="clavier">
+          {lettres}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
