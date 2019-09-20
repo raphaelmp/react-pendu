@@ -17,20 +17,8 @@ class App extends React.Component {
   handleClick(event) {
     let lettreAppuyee = event.target.firstChild.data;
 
-    let ajouts = [lettreAppuyee];
-
-    // Patch pas très élégante pour les accents
-    if (lettreAppuyee === 'e') {
-      ajouts = ['e', 'é', 'è', 'ë'];
-    } else if (lettreAppuyee === 'a') {
-      ajouts = ['à', 'a']
-    }
-
-
-    this.setState(prevState => {
-      let set = prevState.lettresEssayees; // On récupère l'ancien set
-      let nouveauSet = new Set([ ...set, ...ajouts]);
-      return ({lettresEssayees: nouveauSet})
+    this.setState((prevState) => {
+      return {lettresEssayees: prevState.lettresEssayees.add(lettreAppuyee)}
     })
   }
 
