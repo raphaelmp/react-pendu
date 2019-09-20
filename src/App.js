@@ -2,17 +2,21 @@ import React from 'react';
 import './App.css';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+  get etatInitial() {
+    return {
       // On crée un array avec toutes les lettres disponibles
       lettresDisponibles: [..."abcdefghijklmnopqrstuvwxyz"],
       lettresEssayees: new Set(),
       mot: "si",
       gagne: 0
-    }
+    };
+  }
 
+  constructor() {
+    super();
+    this.state = this.etatInitial;
     this.handleClick = this.handleClick.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
   handleClick(event) {
@@ -30,6 +34,11 @@ class App extends React.Component {
         gagne: gagnePartie
       }
     })
+  }
+
+  resetGame(event) {
+    this.setState(this.etatInitial)
+
   }
 
   //On calcule le texte restant à afficher
