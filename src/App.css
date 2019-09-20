@@ -16,8 +16,6 @@
 }
 
 .clavier .lettre {
-  background-color: white;
-  color: #4e4e4e;
   width: 52px;
   height: 52px;
   margin: 3px;
@@ -35,7 +33,18 @@
   user-select: none; /* Standard */
 }
 
-.clavier .lettre:hover {
+.clavier .lettre-utilisee {
+  background-color: #fca992;
+  color: white;
+}
+
+.clavier .lettre-inutilisee {
+  background-color: white;
+  color: #4e4e4e;
+}
+
+
+.clavier .lettre-inutilisee:hover {
   background-color: #c9e6f5;
   color: #2d2c2c;
 }

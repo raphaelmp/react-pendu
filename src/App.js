@@ -24,13 +24,19 @@ class App extends React.Component {
 
   render() {
     // On transforme l'array de lettres du state en divs pour l'affichage
-    let lettres = this.state.lettresDisponibles.map(x => (<div key={x} className="lettre" onClick={this.handleClick}>{x}</div>));
+    let lettres = this.state.lettresDisponibles.map(x => (
+      <div key={x}
+        className={this.state.lettresEssayees.has(x) ? "lettre lettre-utilisee" : "lettre lettre-inutilisee"}
+        onClick={this.handleClick}>
+        {x}
+      </div>));
 
     //On calcule le texte restant à afficher
     function computeDisplay(phrase, usedLetters) {
-      return phrase.replace(/\w/g,
+      let motSortie = phrase.replace(/\w/g,
         (letter) => (usedLetters.has(letter) ? letter : '_')
       )
+      return motSortie;
     }
     let motAffiche = computeDisplay(this.state.mot, this.state.lettresEssayees)
 
@@ -38,9 +44,6 @@ class App extends React.Component {
       <div className="App">
         <div className="mot">
           <p>{motAffiche}</p>
-        </div>
-        <div className="lettresEssayees">
-          <p>Lettres essayées: {}</p>
         </div>
         <div className="clavier">
           {lettres}
