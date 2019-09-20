@@ -8,18 +8,39 @@ class App extends React.Component {
       // On crée un array avec toutes les lettres disponibles
       lettresDisponibles: [..."abcdefghijklmnopqrstuvwxyz"],
       lettresEssayees: new Set(),
-      mot: "sinusite",
+      mot: "si",
+      gagne: 0
     }
 
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
+    let gagnePartie = 0;
     let lettreAppuyee = event.target.firstChild.data;
 
+    // À FAIRE : Rendre plus claire cette horreur de ligne qui vérifie si le joueur a gagné
+    if (this.computeDisplay(this.state.mot, this.state.lettresEssayees.add(lettreAppuyee)) === this.state.mot) {
+      console.log('whe')
+      gagnePartie = 1;
+    }
+
+    console.log(gagnePartie)
+
     this.setState((prevState) => {
-      return {lettresEssayees: prevState.lettresEssayees.add(lettreAppuyee)}
+      console.log(gagnePartie)
+      return {
+        lettresEssayees: prevState.lettresEssayees.add(lettreAppuyee),
+        gagne: gagnePartie
+      }
     })
+  }
+
+  //On calcule le texte restant à afficher
+  computeDisplay(phrase, usedLetters) {
+    return phrase.replace(/\w/g,
+      (letter) => (usedLetters.has(letter) ? letter : '_')
+    )
   }
 
   render() {
@@ -31,22 +52,24 @@ class App extends React.Component {
         {x}
       </div>));
 
-    //On calcule le texte restant à afficher
-    function computeDisplay(phrase, usedLetters) {
-      let motSortie = phrase.replace(/\w/g,
-        (letter) => (usedLetters.has(letter) ? letter : '_')
-      )
-      return motSortie;
-    }
-    let motAffiche = computeDisplay(this.state.mot, this.state.lettresEssayees)
+    let boutonRejouer = ['R','e','j','o','u','e','r','?'].map(x => (
+      <div key={x}
+        className="lettre lettre-rejouer"
+        onClick={this.handleClick}>
+        {x}
+      </div>));
+
+
+    let motAffiche = this.computeDisplay(this.state.mot, this.state.lettresEssayees)
 
     return (
       <div className="App">
         <div className="mot">
-          <p>{motAffiche}</p>
+          <p style={this.state.gagne ? {color: "#A9D962"} : {}}>{motAffiche}</p>
         </div>
+        {this.state.gagne ? <h3>Félicitations! Vous avez gagné!</h3>: ""}
         <div className="clavier">
-          {lettres}
+          {this.state.gagne ? boutonRejouer : lettres}
         </div>
       </div>
     );
