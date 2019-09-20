@@ -7,14 +7,16 @@ class App extends React.Component {
       // On crée un array avec toutes les lettres disponibles
       lettresDisponibles: [..."abcdefghijklmnopqrstuvwxyz"],
       lettresEssayees: new Set(),
-      mot: "si",
-      gagne: 0
+      tousLesMots: ['chat', 'chien', 'cheval', 'poney', 'dromadaire', 'papillon', 'libellule', 'boeuf', 'agneau', 'mouche', 'pigeon', 'crapaud', 'vache'],
+      mot: "",
+      etatPartie: 0
     };
   }
 
   constructor() {
     super();
     this.state = this.etatInitial;
+    this.state.mot = this.state.tousLesMots[Math.floor(Math.random()*this.state.tousLesMots.length)]
     this.handleClick = this.handleClick.bind(this);
     this.resetGame = this.resetGame.bind(this);
   }
@@ -31,13 +33,18 @@ class App extends React.Component {
     this.setState((prevState) => {
       return {
         lettresEssayees: prevState.lettresEssayees.add(lettreAppuyee),
-        gagne: gagnePartie
+        etatPartie: gagnePartie
       }
     })
   }
 
   resetGame(event) {
-    this.setState(this.etatInitial)
+    this.setState(prevState => {
+      let nouvelEtat = this.etatInitial
+      nouvelEtat.mot = prevState.tousLesMots[Math.floor(Math.random()*prevState.tousLesMots.length)];
+      return nouvelEtat
+    }
+      );
 
   }
 
@@ -70,11 +77,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="mot">
-          <p style={this.state.gagne ? {color: "#A9D962"} : {}}>{motAffiche}</p>
+          <p style={this.state.etatPartie ? {color: "#A9D962"} : {}}>{motAffiche}</p>
         </div>
-        {this.state.gagne ? <h3>Félicitations! Vous avez gagné!</h3>: ""}
+        {this.state.etatPartie ? <h3>Félicitations! Vous avez gagné!</h3>: ""}
         <div className="clavier">
-          {this.state.gagne ? boutonRejouer : lettres}
+          {this.state.etatPartie ? boutonRejouer : lettres}
         </div>
       </div>
     );
