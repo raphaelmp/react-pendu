@@ -21,14 +21,10 @@ class App extends React.Component {
 
     // À FAIRE : Rendre plus claire cette horreur de ligne qui vérifie si le joueur a gagné
     if (this.computeDisplay(this.state.mot, this.state.lettresEssayees.add(lettreAppuyee)) === this.state.mot) {
-      console.log('whe')
       gagnePartie = 1;
     }
 
-    console.log(gagnePartie)
-
     this.setState((prevState) => {
-      console.log(gagnePartie)
       return {
         lettresEssayees: prevState.lettresEssayees.add(lettreAppuyee),
         gagne: gagnePartie
@@ -52,10 +48,10 @@ class App extends React.Component {
         {x}
       </div>));
 
-    let boutonRejouer = ['R','e','j','o','u','e','r','?'].map(x => (
-      <div key={x}
+    let boutonRejouer = ['R','e','j','o','u','e','r','?'].map((x,index) => (
+      <div key={index}
         className="lettre lettre-rejouer"
-        onClick={this.handleClick}>
+        onClick={this.resetGame}>
         {x}
       </div>));
 
