@@ -9,7 +9,8 @@ class App extends React.Component {
       lettresEssayees: new Set(),
       tousLesMots: ['chat', 'chien', 'cheval', 'poney', 'dromadaire', 'papillon', 'libellule', 'boeuf', 'agneau', 'mouche', 'pigeon', 'crapaud', 'vache'],
       mot: "",
-      etatPartie: 0
+      etatPartie: 0, //0 = en cours, 1=gagné, 2=perdu
+      barreVie: 92.5,
     };
   }
 
@@ -22,18 +23,18 @@ class App extends React.Component {
   }
 
   handleClick(event) {
-    let gagnePartie = 0;
     let lettreAppuyee = event.target.firstChild.data;
+    let toReturn = {}
 
     // À FAIRE : Rendre plus claire cette horreur de ligne qui vérifie si le joueur a gagné
     if (this.computeDisplay(this.state.mot, this.state.lettresEssayees.add(lettreAppuyee)) === this.state.mot) {
-      gagnePartie = 1;
+      toReturn.etatPartie = 1;
     }
 
     this.setState((prevState) => {
       return {
         lettresEssayees: prevState.lettresEssayees.add(lettreAppuyee),
-        etatPartie: gagnePartie
+        ...toReturn
       }
     })
   }
@@ -79,7 +80,7 @@ class App extends React.Component {
         <h1>Le Pendu</h1>
         <p className="header-description">Trouvez le mot!</p>
         <div className="barreVieContainer">
-          <div className="barreVie" style={{height: "80%"}}></div>
+          <div className="barreVie" style={{height: `${this.state.barreVie}%`}}></div>
         </div>
         <div className="mot">
           <p style={this.state.etatPartie ? {color: "#A9D962"} : {}}>{motAffiche}</p>

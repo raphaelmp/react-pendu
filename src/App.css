@@ -79,7 +79,9 @@ BARRE DE barreVie
 
 .barreVie {
   background-color: #A9D962;
-  width: 100%;
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 4px;
   border-radius: 3px;
   position: absolute;
   bottom: 0;
