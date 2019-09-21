@@ -76,6 +76,11 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <h1>Le Pendu</h1>
+        <p className="header-description">Trouvez le mot!</p>
+        <div className="barreVieContainer">
+          <div className="barreVie" style={{height: "80%"}}></div>
+        </div>
         <div className="mot">
           <p style={this.state.etatPartie ? {color: "#A9D962"} : {}}>{motAffiche}</p>
         </div>
