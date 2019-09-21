@@ -32,6 +32,11 @@ class App extends React.Component {
     }
 
     this.setState((prevState) => {
+      if (!prevState.mot.includes(lettreAppuyee)) {
+        console.log('perdre vie')
+        toReturn.barreVie = prevState.barreVie - 7.5;
+      }
+
       return {
         lettresEssayees: prevState.lettresEssayees.add(lettreAppuyee),
         ...toReturn
@@ -61,7 +66,7 @@ class App extends React.Component {
     let lettres = this.state.lettresDisponibles.map(x => (
       <div key={x}
         className={this.state.lettresEssayees.has(x) ? "lettre lettre-utilisee" : "lettre lettre-inutilisee"}
-        onClick={this.handleClick}>
+        onClick={!this.state.lettresEssayees.has(x) ? this.handleClick : null}>
         {x}
       </div>));
 
