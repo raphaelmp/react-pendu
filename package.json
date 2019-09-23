@@ -2,7 +2,7 @@
   "name": "react-pendu",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://raphael.github.io/react-pendu",
+  "homepage" : "http://raphaelmp.github.io/react-pendu",
   "dependencies": {
     "gh-pages": "^2.1.1",
     "react": "^16.9.0",
