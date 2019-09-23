@@ -1,7 +1,11 @@
 import React from 'react';
 import './App.css';
 
+const nombreDeVies = 10;
+const barreVieInitial = 92.5;
+
 class App extends React.Component {
+
   get etatInitial() {
     return {
       // On crée un array avec toutes les lettres disponibles
@@ -10,7 +14,7 @@ class App extends React.Component {
       tousLesMots: ['chat', 'chien', 'cheval', 'poney', 'dromadaire', 'papillon', 'libellule', 'boeuf', 'agneau', 'mouche', 'pigeon', 'crapaud', 'vache'],
       mot: "",
       etatPartie: 0, //0 = en cours, 1=gagné, 2=perdu
-      barreVie: 92.5,
+      barreVie: barreVieInitial,
     };
   }
 
@@ -32,9 +36,16 @@ class App extends React.Component {
     }
 
     this.setState((prevState) => {
+      // On vérifie si la lettre appuyée est valide ou non
+      // pour ensuite enlever de la vie au joueur
       if (!prevState.mot.includes(lettreAppuyee)) {
-        console.log('perdre vie')
-        toReturn.barreVie = prevState.barreVie - 7.5;
+        toReturn.barreVie = prevState.barreVie - (barreVieInitial / nombreDeVies);
+
+        // Si le nombre de vie est égal à 0, changer l'état de la partie
+        if (toReturn.barreVie <= 0) {
+          console.log('Perdu')
+          toReturn.etatPartie = 2;
+        }
       }
 
       return {
@@ -80,17 +91,37 @@ class App extends React.Component {
 
     let motAffiche = this.computeDisplay(this.state.mot, this.state.lettresEssayees)
 
+    let style = {}
+    let text = {}
+
+    switch(this.state.etatPartie) {
+      case 1:
+        style.mot = {color: "#A9D962"};
+        text.message = "Félicitations! Vous avez gagné!";
+        break;
+      case 2:
+        style.mot = {color: "rgb(255, 70, 70)"};
+        style.batterie = {border: "2px solid rgb(255, 70, 70)"};
+        text.message = "Pas de chance... Vous avez perdu.";
+        text.mot = `Le mot cherché était « ${this.state.mot} ».`;
+        break;
+      default:
+        break;
+    }
+
+
+
     return (
       <div className="App">
         <h1>Le Pendu</h1>
         <p className="header-description">Trouvez le mot!</p>
-        <div className="barreVieContainer">
+        <div className="barreVieContainer" style={style.batterie}>
           <div className="barreVie" style={{height: `${this.state.barreVie}%`}}></div>
         </div>
         <div className="mot">
-          <p style={this.state.etatPartie ? {color: "#A9D962"} : {}}>{motAffiche}</p>
+          <p style={style.mot}>{motAffiche}</p>
         </div>
-        {this.state.etatPartie ? <h3>Félicitations! Vous avez gagné!</h3>: ""}
+        {this.state.etatPartie ? <div><h3>{text.message}</h3><p>{text.mot}</p></div> : ""}
         <div className="clavier">
           {this.state.etatPartie ? boutonRejouer : lettres}
         </div>
