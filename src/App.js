@@ -125,6 +125,10 @@ class App extends React.Component {
         <div className="clavier">
           {this.state.etatPartie ? boutonRejouer : lettres}
         </div>
+
+        <p><br />
+          Le code source de ce projet est disponible sur <a href="https://github.com/raphaelmp/react-pendu" rel="noopener noreferrer" target="_blank">Github</a>.
+        </p>
       </div>
     );
   }
