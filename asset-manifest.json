@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react-pendu/static/css/main.ce7702f3.chunk.css",
-    "main.js": "/react-pendu/static/js/main.cf0ca737.chunk.js",
-    "main.js.map": "/react-pendu/static/js/main.cf0ca737.chunk.js.map",
+    "main.js": "/react-pendu/static/js/main.6839c1da.chunk.js",
+    "main.js.map": "/react-pendu/static/js/main.6839c1da.chunk.js.map",
     "runtime~main.js": "/react-pendu/static/js/runtime~main.79249521.js",
     "runtime~main.js.map": "/react-pendu/static/js/runtime~main.79249521.js.map",
     "static/js/2.8b5038a6.chunk.js": "/react-pendu/static/js/2.8b5038a6.chunk.js",
     "static/js/2.8b5038a6.chunk.js.map": "/react-pendu/static/js/2.8b5038a6.chunk.js.map",
     "index.html": "/react-pendu/index.html",
-    "precache-manifest.e88a5d4ddc6b58109a1c3f51c4d31008.js": "/react-pendu/precache-manifest.e88a5d4ddc6b58109a1c3f51c4d31008.js",
+    "precache-manifest.487564e79123a6eb069622fdfbf14208.js": "/react-pendu/precache-manifest.487564e79123a6eb069622fdfbf14208.js",
     "service-worker.js": "/react-pendu/service-worker.js",
     "static/css/main.ce7702f3.chunk.css.map": "/react-pendu/static/css/main.ce7702f3.chunk.css.map"
   }
